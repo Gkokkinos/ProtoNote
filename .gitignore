@@ -1,0 +1,19 @@
+# CMake test build tree
+Tests/build/
+
+# Projucer-generated build intermediates (Linux Makefile exporter)
+Builds/LinuxMakefile/build/
+Builds/LinuxMakefile/*.mk
+
+# JUCE user-specific exporter settings
+*.jucer.user
+JuceLibraryCode/AppConfig.h.user
+
+# Editors
+.vscode/
+.idea/
+cmake-build-*/
+
+# OS
+.DS_Store
+
