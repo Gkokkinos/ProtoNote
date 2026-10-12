@@ -5,10 +5,6 @@ Tests/build/
 Builds/LinuxMakefile/build/
 Builds/LinuxMakefile/*.mk
 
-# JUCE user-specific exporter settings
-*.jucer.user
-JuceLibraryCode/AppConfig.h.user
-
 # Editors
 .vscode/
 .idea/
