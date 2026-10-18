@@ -1,6 +1,14 @@
 # CMake test build tree
 Tests/build/
 
+# Python bindings build tree
+Bindings/build/
+
+# Python
+TestsPy/.venv/
+__pycache__/
+.pytest_cache/
+
 # Projucer-generated build intermediates (Linux Makefile exporter)
 Builds/LinuxMakefile/build/
 Builds/LinuxMakefile/*.mk

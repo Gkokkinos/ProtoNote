@@ -28,6 +28,36 @@ ninja -C Tests/build
 ./Tests/build/pluginTest_artefacts/pluginTest
 ```
 
+## Python bindings (pytest)
+
+The same harness is exposed to Python via pybind11:
+[`Bindings/bindings.cpp`](Bindings/bindings.cpp) builds a `protonote` extension
+module (`Harness`, `note_on`, `read_wav`/`write_wav`), and [`TestsPy/`](TestsPy/)
+replicates `MidiVolumeTest.cpp` test-for-test with pytest. Building the extension
+requires Python development headers (`Python.h`).
+
+```bash
+# one-time setup
+python3 -m venv TestsPy/.venv
+TestsPy/.venv/bin/pip install -r TestsPy/requirements.txt
+
+# if your distro's Python has no dev headers, use a standalone build instead:
+#   uv python install 3.14
+#   uv venv --seed --python 3.14 TestsPy/.venv
+#   uv pip install --python TestsPy/.venv/bin/python -r TestsPy/requirements.txt
+
+# build the extension
+cmake -S Bindings -B Bindings/build -G Ninja \
+      -DPython3_EXECUTABLE=$PWD/TestsPy/.venv/bin/python
+ninja -C Bindings/build
+
+# run the suite (TestsPy/pytest.ini puts Bindings/build on sys.path)
+TestsPy/.venv/bin/python -m pytest TestsPy -v
+```
+
+`UPDATE_GOLDEN=1` re-records golden files here as well (see
+[`TestsPy/helpers.py`](TestsPy/helpers.py)).
+
 ## Build the plugin
 
 Open [`ProtoNote.jucer`](ProtoNote.jucer) in the Projucer, save, and build from
